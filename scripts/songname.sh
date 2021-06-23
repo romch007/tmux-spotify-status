@@ -5,6 +5,7 @@ CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}"  )" && pwd  )"
 source "$CURRENT_DIR/helpers.sh"
 
 get_songname() {
+  make_request
   local songname=$(jq -r '.item.name' $CURRENT_DIR/../response.json)
   echo $songname > /tmp/songname.txt
   printf "$songname"

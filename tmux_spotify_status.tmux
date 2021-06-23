@@ -16,8 +16,6 @@ do_interpolation() {
   local input=$1
   local result=""
 
-  make_request
-
   result=${input/$songname_interpolation/$songname}
   result=${result/$artist_interpolation/$artist}
   
