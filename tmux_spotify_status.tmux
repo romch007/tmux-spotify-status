@@ -9,15 +9,14 @@ source "$CURRENT_DIR/scripts/helpers.sh"
 songname_interpolation="\#{spotify_songname}"
 artist_interpolation="\#{spotify_artist}"
 
+songname="#($CURRENT_DIR/scripts/songname.sh)"
+artist="#($CURRENT_DIR/scripts/artist.sh)"
+
 do_interpolation() {
   local input=$1
   local result=""
 
-  local token=$(head -1 $TOKEN_FILE)
-  local response=$(curl -X "GET" "https://api.spotify.com/v1/me/player/currently-playing?market=ES" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer $token")
-
-  local songname=$(echo $response | jq -r '.item.name')
-  local artist=$(echo $response | jq -r '.item.artists[0].name')
+  make_request
 
   result=${input/$songname_interpolation/$songname}
   result=${result/$artist_interpolation/$artist}
